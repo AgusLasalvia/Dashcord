@@ -1,0 +1,33 @@
+---
+import Layout from "./Layout.astro";
+import Sidebar from "../components/Sidebar.astro";
+const { active = "music" } = Astro.props;
+---
+
+<Layout>
+	<div class="dashboard-layout">
+		<Sidebar active={active} />
+		<main class="dashboard-main">
+			<slot />
+		</main>
+	</div>
+	<style>
+		.dashboard-layout {
+			display: flex;
+			min-height: 100vh;
+		}
+		.dashboard-main {
+			flex: 1;
+			padding: 2.5rem 3rem;
+			display: flex;
+			flex-direction: column;
+			min-width: 0;
+		}
+		@media (max-width: 900px) {
+			.dashboard-main {
+				padding: 1.5rem 0.5rem;
+			}
+		}
+	</style>
+</Layout>
+
