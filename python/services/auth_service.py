@@ -5,7 +5,7 @@ from core import web_token
 
 
 async def login(username: str, password: str) -> LoginReponse:
-    user = ur.login(username, password)
+    user = await ur.login(username, password)
     print(user)
     if user is not None:
         token = web_token.create_token(username)
