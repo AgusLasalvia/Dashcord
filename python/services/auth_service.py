@@ -1,7 +1,7 @@
 from models.auth_model import *
 from repositories import user_repository as ur
-from utils.serializer import mongo_to_list
-from core.security import web_token
+from utils import mongo_to_list
+from core import web_token
 
 
 async def login(username: str, password: str) -> LoginReponse:

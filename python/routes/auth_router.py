@@ -1,6 +1,5 @@
 from fastapi import APIRouter, HTTPException
 from services import auth_service as auth
-from core.security import web_token
 from models.auth_model import *
 
 router = APIRouter()
