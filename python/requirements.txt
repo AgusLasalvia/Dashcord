@@ -1,1 +1,5 @@
-flask
+fastapi
+pymongo
+python-dotenv
+uvicorn
+pyjwt

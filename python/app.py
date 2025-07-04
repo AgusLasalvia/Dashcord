@@ -1,29 +1,54 @@
-from flask import Flask, render_template, session, request
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel
+from database.mongo_database import db
+from core import *
 
-from config import *
-
-
-secret_key: str = get_secret_key()
-
-if not secret_key:
-    raise ValueError("No secret key set")
+app = FastAPI()
 
 
-app = Flask(__name__)
+##############################
+# Forms "interfaces"
+##############################
+
+class LoginRequest(BaseModel):
+    username: str
+    password: str
 
 
-@app.route('/login', methods=['POST'])
-def login():
-    username = request.form.get('username')
-    password = request.form.get('password')
+class NewPlaylist(BaseModel):
+    user_id: str
+    playlist_name: str
 
-    if username == 'admin' and password == 'password':
 
-        return "Login successful", 200
+##############################
+# User Routes
+##############################
+@app.post('/login')
+async def login(login_req: LoginRequest):
+    if login_req.username == 'admin' and login_req.password == 'password':
+        token = web_token.create_token(login_req.username)
+        return {"token": token}
     else:
-        return "Invalid credentials", 401
+        raise HTTPException(status_code=401, detail="Invalid credentials")
 
 
-@app.route('/songs',methods=['GET'])
-def get_songs():
-    pass
+#############################
+# Playlist Routes
+#############################
+
+@app.get('/playlists')
+async def get_all_playlists():
+
+    playlists = db.get_all_playlists()
+    for playlist in playlists:
+        if '_id' in playlist:
+            playlist['_id'] = str(playlist['_id'])
+    return {"playlists": playlists}
+
+
+@app.post("/playlist")
+async def new_playlist(body: NewPlaylist):
+    playlist_id = db.create_playlist(body.user_id, body.playlist_name)
+    return {"message": "Playlist creada", "playlist_id": playlist_id}
+
+ # TODO: make a token check or a global check function
