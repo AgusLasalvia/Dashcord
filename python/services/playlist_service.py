@@ -1,4 +1,3 @@
-from models.auth_model import *
 from repositories import playlist_repository as pr
 
 

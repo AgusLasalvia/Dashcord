@@ -1,4 +1,4 @@
-from fastapi import Depends, APIRouter, Request
+from fastapi import Depends, APIRouter
 from services import playlist_service as service
 from models import Playlist
 from utils import get_current_user
@@ -20,6 +20,5 @@ async def get_playlist_by_id(id: str, current_user: dict = Depends(get_current_u
 
 @router.post("/new")
 async def create_new_playlist(playlist_req: Playlist, current_user: dict = Depends(get_current_user)):
-    print(playlist_req)
     playlist_created = await service.create_new_playlist(playlist_req)
     return {"playlist": playlist_created}

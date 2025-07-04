@@ -2,3 +2,4 @@
 # import playlist_route
 from .auth_router import router as auth_router
 from .playlist_router import router as playlist_router
+from .song_router import router as song_router

@@ -6,7 +6,7 @@ from typing import Optional
 
 async def get_all_playlists():
     playlists = await db.playlist_collection.find({}).to_list()
-    return [fix_mongo_id(p) for p in playlists]
+    return [await fix_mongo_id(p) for p in playlists]
 
 
 async def get_playlist_by_id(id: str):
@@ -14,7 +14,7 @@ async def get_playlist_by_id(id: str):
         "_id": ObjectId(id)
     })
 
-    return fix_mongo_id(playlist)
+    return await fix_mongo_id(playlist)
 
 
 async def create_new_playlist(playlist: Playlist):
@@ -30,7 +30,7 @@ async def create_new_playlist(playlist: Playlist):
 
 
 
-def fix_mongo_id(doc: Optional[dict]) -> Optional[dict]:
+async def fix_mongo_id(doc: Optional[dict]) -> Optional[dict]:
     if doc and "_id" in doc:
         doc["_id"] = str(doc["_id"])
     return doc
