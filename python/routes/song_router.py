@@ -7,4 +7,4 @@ router = APIRouter()
 @router.get('/search')
 async def search(filter: str, current_user: dict = Depends(get_current_user)):
     result = await service.search_video_urls(filter)
-    return {"result": result}, 200
+    return result, 200

@@ -14,11 +14,10 @@ class JWT:
 						"exp": datetime.datetime.utcnow() + datetime.timedelta(days=30),
 						"iat": datetime.datetime.utcnow()
 				}
-				print(self.secret)
+
 				return jwt.encode(payload, self.secret, algorithm="HS256")
 
 		def verify_token(self, token: str) -> str | None:
-				print(self.secret)
 				# Decodifica y valida firma y expiración automáticamente
 				payload = jwt.decode(token, self.secret, algorithms=["HS256"])
 
