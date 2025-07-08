@@ -3,23 +3,39 @@ const { active = "music" } = Astro.props;
 ---
 
 <aside class="sidebar">
-	<div class="sidebar-title">
-		<i class="bi bi-disc-fill sidebar-logo"></i>
+	<div class="sidebar-content">
+		<div>
+			<div class="sidebar-title">
+				<i class="bi bi-disc-fill sidebar-logo"></i>
+			</div>
+			<nav class="sidebar-nav">
+				<a
+					href="/playlists"
+					class={`sidebar-link${active === "music" ? " active" : ""}`}
+					><i class="bi bi-music-note-list"></i> <span>Playlists</span></a
+				>
+				<a
+					href="#"
+					class={`sidebar-link${active === "profile" ? " active" : ""}`}
+					><i class="bi bi-person"></i> <span>Perfil</span></a
+				>
+				<a
+					href="#"
+					class={`sidebar-link${active === "search" ? " active" : ""}`}
+					><i class="bi bi-search"></i> <span>Buscar Canción</span></a
+				>
+				<a
+					href="#"
+					class={`sidebar-link${active === "settings" ? " active" : ""}`}
+					><i class="bi bi-gear"></i> <span>Ajustes</span></a
+				>
+			</nav>
+		</div>
+		<a href="/logout" class="sidebar-link sidebar-logout">
+			<i class="bi bi-box-arrow-right"></i>
+			<span>Logout</span>
+		</a>
 	</div>
-	<nav class="sidebar-nav">
-		<a href="#" class={`sidebar-link${active === "music" ? " active" : ""}`}
-			><i class="bi bi-music-note-beamed"></i> <span>Música</span></a
-		>
-		<a href="#" class={`sidebar-link${active === "profile" ? " active" : ""}`}
-			><i class="bi bi-person"></i> <span>Perfil</span></a
-		>
-		<a href="#" class={`sidebar-link${active === "search" ? " active" : ""}`}
-			><i class="bi bi-search"></i> <span>Buscar Canción</span></a
-		>
-		<a href="#" class={`sidebar-link${active === "settings" ? " active" : ""}`}
-			><i class="bi bi-gear"></i> <span>Ajustes</span></a
-		>
-	</nav>
 </aside>
 <style>
 	.sidebar {
@@ -28,10 +44,17 @@ const { active = "music" } = Astro.props;
 		transition: width 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 		display: flex;
 		flex-direction: column;
-		padding: 1rem 0.2rem;
+		padding: 0;
 		box-shadow: 2px 0 16px rgba(0, 0, 0, 0.1);
 		overflow: hidden;
 		z-index: 2;
+		position: fixed;
+		top: 0;
+		left: 0;
+		height: 100vh;
+		overflow-y: auto;
+		border-top-right-radius: 20px;
+		border-bottom-right-radius: 20px;
 	}
 	.sidebar:hover {
 		width: 220px;
@@ -121,5 +144,19 @@ const { active = "music" } = Astro.props;
 	}
 	.sidebar:hover .sidebar-logo {
 		color: #fff;
+	}
+	.sidebar-logout {
+		color: #ff7675;
+	}
+	.sidebar-logout:hover {
+		background: #23272a;
+		color: #fff;
+	}
+	.sidebar-content {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		height: 100%;
+		padding: 1rem 0.2rem 2.5rem 0.2rem;
 	}
 </style>

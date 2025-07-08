@@ -7,6 +7,7 @@ router = APIRouter()
 
 @router.post('/login')
 async def login(login_req: LoginRequest, response_model=list[LoginReponse]):
+    print(login_req.username)
     if login_req.username != '' and login_req.password != '':
         response = await service.login(login_req.username, login_req.password)
         return {"data": response}, 200

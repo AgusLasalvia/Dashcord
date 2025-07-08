@@ -31,6 +31,7 @@ const youtubeLink = `https://www.youtube.com/watch?v=${youtube_id}`;
 		cursor: pointer;
 		position: relative;
 		border: 2px solid transparent;
+		max-width: 260px;
 	}
 	.song-card:hover {
 		transform: scale(1.045) translateY(-2px);
@@ -52,6 +53,10 @@ const youtubeLink = `https://www.youtube.com/watch?v=${youtube_id}`;
 		color: #fff;
 		text-align: center;
 		margin-bottom: 0.2rem;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		max-width: 90%;
 	}
 	.song-card .music-artist {
 		font-size: 0.98rem;
@@ -78,16 +83,4 @@ const youtubeLink = `https://www.youtube.com/watch?v=${youtube_id}`;
 		opacity: 1;
 	}
 </style>
-<script is:inline>
-	document.addEventListener("DOMContentLoaded", () => {
-		document.querySelectorAll(".song-card[data-youtube]").forEach((card) => {
-			card.addEventListener("click", function () {
-				const link = this.getAttribute("data-youtube");
-				navigator.clipboard.writeText(link);
-				this.classList.add("copied");
-				setTimeout(() => this.classList.remove("copied"), 1200);
-			});
-		});
-	});
-</script>
 

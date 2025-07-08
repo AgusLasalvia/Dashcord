@@ -1,0 +1,242 @@
+---
+import DashboardLayout from "../layouts/DashboardLayout.astro";
+import PlaylistCard from "../components/PlaylistCard.astro";
+
+// const playlistList = fetch("http://localhost:3000/api/music").then((res) => res.json());
+const username = "Usuario";
+const playlistList = [
+	{
+		title: "Blinding Lights",
+		youtubeID: "4NRXx6U8ABQ",
+		created: "Agus",
+	},
+	{
+		title: "Shape of You",
+		youtubeID: "JGwWNGJdvx8",
+		created: "Seba",
+	},
+	{
+		title: "Levitating",
+		youtubeID: "TUVcZfQe-Kw",
+		created: "Agus",
+	},
+	{
+		title: "Dance Monkey",
+		youtubeID: "q0hyYWKXF0Q",
+		created: "Agus",
+	},
+	{
+		title: "Uptown Funk",
+		youtubeID: "OPf0YbXqDm0",
+		created: "Seba",
+	},
+	{
+		title: "Despacito",
+		youtubeID: "kJQP7kiw5Fk",
+		created: "Seba",
+	},
+	{
+		title: "Bad Guy",
+		youtubeID: "DyDfgMOUjCI",
+		created: "Meli",
+	},
+	{
+		title: "Señorita",
+		youtubeID: "Pkh8UtuejGw",
+		created: "Agus",
+	},
+	{
+		title: "Old Town Road",
+		youtubeID: "r7qovpFAGrQ",
+		created: "Seba",
+	},
+	{
+		title: "Sunflower",
+		youtubeID: "ApXoWvfEYVU",
+		created: "Meli",
+	},
+	{
+		title: "Happier",
+		youtubeID: "m7Bc3pLyij0",
+		created: "Agus",
+	},
+	{
+		title: "Rockstar",
+		youtubeID: "UceaB4D0jpo",
+		created: "Seba",
+	},
+	{
+		title: "Closer",
+		youtubeID: "PT2_F-1esPk",
+		created: "Meli",
+	},
+	{
+		title: "Believer",
+		youtubeID: "7wtfhZwyrcc",
+		created: "Agus",
+	},
+	{
+		title: "Faded",
+		youtubeID: "60ItHLz5WEA",
+		created: "Seba",
+	},
+	{
+		title: "Stressed Out",
+		youtubeID: "pXRviuL6vMY",
+		created: "Meli",
+	},
+];
+---
+
+<DashboardLayout active="music">
+	<header class="dashboard-header">
+		<span>Bienvenido, {username}</span>
+	</header>
+	<section class="music-list-section">
+		<div class="music-list-header">
+			<h2>Playlists</h2>
+			<input
+				type="text"
+				id="search-bar"
+				class="search-bar"
+				placeholder="Search playlist by name..."
+				list="playlist-names"
+			/>
+			<datalist id="playlist-names">
+				{playlistList.map((playlist) => <option value={playlist.title} />)}
+			</datalist>
+		</div>
+		<div class="music-grid" id="music-grid">
+			{
+				playlistList.length > 0 ? (
+					playlistList.map((playlist: any) => (
+						<PlaylistCard
+							title={playlist.title}
+							created={playlist.created}
+							youtube_id={playlist.youtubeID}
+						/>
+					))
+				) : (
+					<div class="song-card empty">No playlist found with that name.</div>
+				)
+			}
+		</div>
+	</section>
+</DashboardLayout>
+
+<script is:inline>
+	document.addEventListener("DOMContentLoaded", () => {
+		const searchBar = document.getElementById("search-bar");
+		const grid = document.getElementById("music-grid");
+		if (searchBar && grid) {
+			searchBar.addEventListener("input", function () {
+				const query = this.value.toLowerCase();
+				grid.querySelectorAll(".playlist-card-redesign").forEach((card) => {
+					const title =
+						card
+							.querySelector(".playlist-title-overlay")
+							?.textContent?.toLowerCase() || "";
+					const creator =
+						card
+							.querySelector(".playlist-created")
+							?.textContent?.toLowerCase() || "";
+					if (title.includes(query) || creator.includes(query)) {
+						card.style.display = "";
+					} else {
+						card.style.display = "none";
+					}
+				});
+			});
+		}
+		// Copiar link
+		document.querySelectorAll(".song-card[data-youtube]").forEach((card) => {
+			card.addEventListener("click", function () {
+				const link = this.getAttribute("data-youtube");
+				navigator.clipboard.writeText(link);
+				this.classList.add("copied");
+				setTimeout(() => this.classList.remove("copied"), 1200);
+			});
+		});
+	});
+</script>
+
+<style>
+	@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap");
+	body {
+		background: linear-gradient(135deg, #23272a 0%, #2c2f33 100%);
+		color: #fff;
+		font-family: "Inter", "Segoe UI", "Roboto", "sans-serif";
+		margin: 0;
+		padding: 0;
+	}
+	.dashboard-header {
+		font-size: 1.1rem;
+		color: #b9bbbe;
+		margin-bottom: 2rem;
+		text-align: right;
+	}
+	.music-list-header {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		margin-bottom: 2.5rem;
+	}
+	.music-list-header h2 {
+		margin-top: 0;
+		font-size: 1.7rem;
+		font-weight: 600;
+		color: #fff;
+		letter-spacing: 0.5px;
+		margin-bottom: 1.5rem;
+		text-align: center;
+	}
+	.search-bar {
+		width: 100%;
+		max-width: 400px;
+		margin-bottom: 0;
+		padding: 0.7rem 1.1rem;
+		border-radius: 8px;
+		border: 1.5px solid #23272a;
+		background: #23272a;
+		color: #fff;
+		font-size: 1.05rem;
+		font-family: inherit;
+		transition:
+			border 0.2s,
+			box-shadow 0.2s;
+		box-shadow: 0 2px 8px rgba(88, 101, 242, 0.05);
+		text-align: center;
+	}
+	.search-bar:focus {
+		border-color: #5865f2;
+		outline: none;
+		box-shadow: 0 0 0 2px #5865f2aa;
+	}
+	.music-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+		gap: 1.5rem;
+		padding: 0;
+		margin: 0;
+		justify-items: center;
+	}
+	@media (max-width: 1200px) {
+		.music-grid {
+			grid-template-columns: repeat(3, 1fr);
+		}
+	}
+	@media (max-width: 900px) {
+		.dashboard-header {
+			padding: 0 0.5rem;
+		}
+		.music-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+	@media (max-width: 600px) {
+		.music-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>
