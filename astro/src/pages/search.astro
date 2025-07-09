@@ -1,16 +1,7 @@
 ---
-import DashboardLayout from "../layouts/DashboardLayout.astro";
-import searchSong from "../lib/searchSong";
 import SongCard from "../components/SongCard.astro";
-
-const currentURL = new URL(Astro.url.href);
-const q = currentURL.searchParams.get("q");
-
-let songs = [];
-
-if (q) {
-	songs = await searchSong(q);
-}
+import DashboardLayout from "../layouts/DashboardLayout.astro";
+import { songs } from "../lib/song";
 ---
 
 <DashboardLayout active="search">
@@ -31,14 +22,19 @@ if (q) {
 				><i class="bi bi-search"></i> Buscar</button
 			>
 		</form>
-		<div class="music-grid">
-			{
+		<div class="music-grid" id="grid">
+			<!-- {
 				songs.map((song: any) => (
 					<SongCard title={song.title} youtube_id={song.youtube_id} />
 				))
-			}
+			} -->
 		</div>
 	</section>
+
+	<script type="module">
+		import SongCard from "../components/SongCard.astro";
+		document.querySelector("#grid").innerHTML
+	</script>
 </DashboardLayout>
 
 <style>
