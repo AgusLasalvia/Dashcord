@@ -1,0 +1,89 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap");
+
+body {
+	background: linear-gradient(135deg, #23272a 0%, #2c2f33 100%);
+	color: #fff;
+	font-family: "Inter", "Segoe UI", "Roboto", "sans-serif";
+	margin: 0;
+	padding: 0;
+}
+
+.dashboard-header {
+	font-size: 1.1rem;
+	color: #b9bbbe;
+	margin-bottom: 2rem;
+	text-align: right;
+}
+
+.music-list-header {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	margin-bottom: 2.5rem;
+}
+
+.music-list-header h2 {
+	margin-top: 0;
+	font-size: 1.7rem;
+	font-weight: 600;
+	color: #fff;
+	letter-spacing: 0.5px;
+	margin-bottom: 1.5rem;
+	text-align: center;
+}
+
+.search-bar {
+	width: 100%;
+	max-width: 400px;
+	margin-bottom: 0;
+	padding: 0.7rem 1.1rem;
+	border-radius: 8px;
+	border: 1.5px solid #23272a;
+	background: #23272a;
+	color: #fff;
+	font-size: 1.05rem;
+	font-family: inherit;
+	transition:
+		border 0.2s,
+		box-shadow 0.2s;
+	box-shadow: 0 2px 8px rgba(88, 101, 242, 0.05);
+	text-align: center;
+}
+
+.search-bar:focus {
+	border-color: #5865f2;
+	outline: none;
+	box-shadow: 0 0 0 2px #5865f2aa;
+}
+
+.music-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+	gap: 1.5rem;
+	padding: 0;
+	margin: 0;
+	justify-items: center;
+}
+
+@media (max-width: 1200px) {
+	.music-grid {
+		grid-template-columns: repeat(3, 1fr);
+	}
+}
+
+@media (max-width: 900px) {
+	.dashboard-header {
+		padding: 0 0.5rem;
+	}
+
+	.music-grid {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}
+
+@media (max-width: 600px) {
+	.music-grid {
+		grid-template-columns: 1fr;
+	}
+}

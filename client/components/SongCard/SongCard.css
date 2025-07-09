@@ -1,0 +1,72 @@
+.song-card {
+	background: #2c2f33;
+	border-radius: 14px;
+	padding: 1.2rem 1rem 1rem 1rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	box-shadow: 0 2px 8px rgba(88, 101, 242, 0.05);
+	transition:
+		transform 0.15s,
+		box-shadow 0.15s,
+		border 0.15s;
+	cursor: pointer;
+	position: relative;
+	border: 2px solid transparent;
+	max-width: 260px;
+}
+
+.song-card:hover {
+	transform: scale(1.045) translateY(-2px);
+	box-shadow: 0 4px 16px rgba(88, 101, 242, 0.12);
+	border: 2px solid #5865f2;
+}
+
+.song-card .music-cover {
+	width: 80px;
+	height: 80px;
+	border-radius: 10px;
+	object-fit: cover;
+	margin-bottom: 1rem;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+	transition: transform 0.2s;
+}
+
+.song-card .music-title {
+	font-size: 1.08rem;
+	font-weight: 600;
+	color: #fff;
+	text-align: center;
+	margin-bottom: 0.2rem;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	max-width: 90%;
+}
+
+.song-card .music-artist {
+	font-size: 0.98rem;
+	color: #b9bbbe;
+	font-weight: 500;
+	text-align: center;
+	margin-bottom: 0.5rem;
+}
+
+.song-card .copy-feedback {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	background: #5865f2;
+	color: #fff;
+	font-size: 0.95rem;
+	padding: 0.2rem 0.7rem;
+	border-radius: 6px;
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 0.2s;
+	z-index: 10;
+}
+
+.song-card.copied .copy-feedback {
+	opacity: 1;
+}
