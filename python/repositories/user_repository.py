@@ -3,11 +3,11 @@ from bson import ObjectId
 
 
 async def login(username: str, password: str):
-    user = db.user_collection.find_one({
+    user = await db.user_collection.find_one({
         "username": username,
         "password": password
     })
-
+    print(user)
     return user
 
 

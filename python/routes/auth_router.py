@@ -10,7 +10,10 @@ async def login(login_req: LoginRequest, response_model=list[LoginReponse]):
     print(login_req.username)
     if login_req.username != '' and login_req.password != '':
         response = await service.login(login_req.username, login_req.password)
-        return response
+        if response is not None:
+            return response
+        else:
+            raise HTTPException(status_code=404, detail="User Not Found")
 
     else:
         raise HTTPException(status_code=401, detail="Invalid credentials")

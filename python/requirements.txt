@@ -6,3 +6,4 @@ pyjwt
 motor
 yt-search
 httpx==0.24.1
+youtube-search-python
