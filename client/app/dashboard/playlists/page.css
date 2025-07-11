@@ -58,16 +58,18 @@ body {
 }
 
 .music-grid {
+	margin-left: 100px;
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
 	gap: 1.5rem;
 	padding: 0;
-	margin: 0;
+
 	justify-items: center;
 }
 
 @media (max-width: 1200px) {
 	.music-grid {
+		margin: 0;
 		grid-template-columns: repeat(3, 1fr);
 	}
 }
